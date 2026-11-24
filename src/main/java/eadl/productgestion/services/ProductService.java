@@ -1,26 +1,24 @@
 package eadl.productgestion.services;
 
-import eadl.productgestion.dto.request.ProductRequestDTO;
-import eadl.productgestion.dto.request.UpdateProductRequestDTO;
-import eadl.productgestion.dto.response.ProductResponseDTO;
+import eadl.productgestion.dto.request.ProductRequest;
+import eadl.productgestion.dto.request.StockAdjustmentRequest;
+import eadl.productgestion.dto.response.ProductResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 public interface ProductService {
 
-    ProductResponseDTO save(ProductRequestDTO requestDTO);
+    ProductResponse create(ProductRequest request);
 
-    ProductResponseDTO update(Long productId, UpdateProductRequestDTO requestDTO);
+    ProductResponse findById(Long id);
 
-    ProductResponseDTO findByCode(String code);
+    Page<ProductResponse> findAll(String name, Long categoryId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable);
 
-    List<ProductResponseDTO> findAllByNameContainingIgnoreCase(String name);
+    ProductResponse update(Long id, ProductRequest request);
 
-    List<ProductResponseDTO> findAll();
+    ProductResponse adjustStock(Long id, StockAdjustmentRequest request);
 
-    void deleteById(Long productId);
-
-    void deleteByCode(String code);
-
-
+    void deleteById(Long id);
 }

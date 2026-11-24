@@ -16,15 +16,33 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ApiError> handleProductNotFound(ProductNotFoundException ex, HttpServletRequest req) {
+        log.warn("Produit non trouvé : {} - URI: {}", ex.getMessage(), req.getRequestURI());
+        return build(HttpStatus.NOT_FOUND, ex.getCode(), ex.getMessage(), req, List.of());
+    }
+
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<ApiError> handleCategoryNotFound(CategoryNotFoundException ex, HttpServletRequest req) {
-        log.warn("Ressource non trouvée : {} - URI: {}", ex.getMessage(), req.getRequestURI());
+        log.warn("Catégorie non trouvée : {} - URI: {}", ex.getMessage(), req.getRequestURI());
         return build(HttpStatus.NOT_FOUND, ex.getCode(), ex.getMessage(), req, List.of());
+    }
+
+    @ExceptionHandler(DuplicateProductException.class)
+    public ResponseEntity<ApiError> handleDuplicateProduct(DuplicateProductException ex, HttpServletRequest req) {
+        log.warn("Conflit produit (SKU existant) : {} - URI: {}", ex.getMessage(), req.getRequestURI());
+        return build(HttpStatus.CONFLICT, ex.getCode(), ex.getMessage(), req, List.of());
     }
 
     @ExceptionHandler(DuplicateCategoryException.class)
     public ResponseEntity<ApiError> handleDuplicateCategory(DuplicateCategoryException ex, HttpServletRequest req) {
-        log.warn("Conflit métier : {} - URI: {}", ex.getMessage(), req.getRequestURI());
+        log.warn("Conflit catégorie : {} - URI: {}", ex.getMessage(), req.getRequestURI());
+        return build(HttpStatus.CONFLICT, ex.getCode(), ex.getMessage(), req, List.of());
+    }
+
+    @ExceptionHandler(InsufficientStockException.class)
+    public ResponseEntity<ApiError> handleInsufficientStock(InsufficientStockException ex, HttpServletRequest req) {
+        log.warn("Stock insuffisant : {} - URI: {}", ex.getMessage(), req.getRequestURI());
         return build(HttpStatus.CONFLICT, ex.getCode(), ex.getMessage(), req, List.of());
     }
 
@@ -32,6 +50,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleBusinessException(BusinessException ex, HttpServletRequest req) {
         log.warn("Erreur métier : {} - Code: {} - URI: {}", ex.getMessage(), ex.getCode(), req.getRequestURI());
         return build(HttpStatus.BAD_REQUEST, ex.getCode(), ex.getMessage(), req, List.of());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleIllegalArgument(IllegalArgumentException ex, HttpServletRequest req) {
+        log.warn("Argument invalide : {} - URI: {}", ex.getMessage(), req.getRequestURI());
+        return build(HttpStatus.BAD_REQUEST, "INVALID_ARGUMENT", ex.getMessage(), req, List.of());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
