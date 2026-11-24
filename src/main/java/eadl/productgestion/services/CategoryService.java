@@ -2,38 +2,34 @@ package eadl.productgestion.services;
 
 import eadl.productgestion.dto.request.CategoryRequest;
 import eadl.productgestion.dto.response.CategoryResponse;
-import eadl.productgestion.exception.CategoryNotFoundException;
-import eadl.productgestion.exception.DuplicateCategoryException;
 
 import java.util.List;
 
 /**
- * Service de gestion des catégories de produits.
+ * Contrat de service pour la gestion des catégories.
  */
 public interface CategoryService {
 
     /**
-     * Crée une nouvelle catégorie après vérification de l'unicité de son nom.
+     * Crée une nouvelle catégorie.
      *
      * @param request données de la catégorie à créer
-     * @return la catégorie créée
-     * @throws DuplicateCategoryException si une catégorie avec le même nom existe déjà
+     * @return la catégorie enregistrée
      */
     CategoryResponse create(CategoryRequest request);
 
     /**
-     * Retourne la liste de toutes les catégories existantes.
+     * Récupère l'ensemble des catégories.
      *
-     * @return liste des catégories
+     * @return la liste des catégories
      */
     List<CategoryResponse> findAll();
 
     /**
-     * Recherche une catégorie par son identifiant unique.
+     * Recherche une catégorie par son identifiant.
      *
      * @param id identifiant de la catégorie
-     * @return la catégorie trouvée
-     * @throws CategoryNotFoundException si aucune catégorie ne correspond à l'identifiant
+     * @return la catégorie correspondante
      */
     CategoryResponse findById(Long id);
 }
