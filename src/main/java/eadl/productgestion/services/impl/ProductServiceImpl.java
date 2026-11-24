@@ -4,7 +4,7 @@ import eadl.productgestion.dto.request.ProductRequestDTO;
 import eadl.productgestion.dto.request.UpdateProductRequestDTO;
 import eadl.productgestion.dto.response.ProductResponseDTO;
 import eadl.productgestion.entity.Product;
-import eadl.productgestion.exception.BusinessException;
+import eadl.productgestion.exception.DuplicateProductException;
 import eadl.productgestion.exception.ResourceNotFoundException;
 import eadl.productgestion.mappers.ProductMapper;
 import eadl.productgestion.repositories.ProductRepository;
@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDTO save(ProductRequestDTO requestDTO) {
         Boolean productExists = productRepository.existsByCode(requestDTO.code());
-        if(productExists) throw  new BusinessException("The product already exists ! ");
+        if(productExists) throw new DuplicateProductException("The product already exists ! ");
 
         return productMapper.toDTO(productRepository.save(productMapper.toEntity(requestDTO)));
     }
