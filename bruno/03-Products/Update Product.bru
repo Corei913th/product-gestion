@@ -1,0 +1,34 @@
+meta {
+  name: Update Product
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/v1/products/:id
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: 1
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "sku": "LAP-001",
+    "name": "Ordinateur portable 15 pouces PRO",
+    "description": "16 Go de RAM, SSD 512 Go",
+    "price": 420000.00,
+    "quantity": 15,
+    "categoryId": 1
+  }
+}

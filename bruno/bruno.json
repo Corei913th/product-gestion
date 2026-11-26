@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Product Gestion API",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

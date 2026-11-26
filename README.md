@@ -61,6 +61,12 @@ eadl.productgestion
 | **PUT** | `/api/v1/products/{id}` | Modifier un produit | `200 OK`, `400`, `404`, `409` |
 | **PATCH** | `/api/v1/products/{id}/stock` | Ajuster le stock (`delta` positif ou négatif) | `200 OK`, `400`, `404`, `409` |
 | **DELETE** | `/api/v1/products/{id}` | Supprimer un produit | `204 No Content`, `404` |
+| **POST** | `/api/v1/users` | Créer un utilisateur | `201 Created`, `400`, `409` |
+| **GET** | `/api/v1/users` | Lister tous les utilisateurs | `200 OK` |
+| **GET** | `/api/v1/users/{id}` | Consulter un utilisateur | `200 OK`, `404` |
+| **PUT** | `/api/v1/users/{id}` | Modifier un utilisateur | `200 OK`, `400`, `404`, `409` |
+| **PATCH** | `/api/v1/users/{id}/status` | Modifier le statut (ACTIVE / BLOCKED) | `200 OK`, `404` |
+| **DELETE** | `/api/v1/users/{id}` | Supprimer un utilisateur | `204 No Content`, `404` |
 
 ---
 

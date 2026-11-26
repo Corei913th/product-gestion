@@ -1,0 +1,23 @@
+meta {
+  name: Change User Status
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/api/v1/users/:id/status?status=BLOCKED
+  body: none
+  auth: bearer
+}
+
+params:query {
+  status: BLOCKED
+}
+
+params:path {
+  id: 1
+}
+
+auth:bearer {
+  token: {{token}}
+}

@@ -28,6 +28,18 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.NOT_FOUND, ex.getCode(), ex.getMessage(), req, List.of());
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ApiError> handleUserNotFound(UserNotFoundException ex, HttpServletRequest req) {
+        log.warn("Utilisateur non trouvé : {} - URI: {}", ex.getMessage(), req.getRequestURI());
+        return build(HttpStatus.NOT_FOUND, ex.getCode(), ex.getMessage(), req, List.of());
+    }
+
+    @ExceptionHandler(DuplicateUserEmailException.class)
+    public ResponseEntity<ApiError> handleDuplicateUserEmail(DuplicateUserEmailException ex, HttpServletRequest req) {
+        log.warn("Conflit email utilisateur : {} - URI: {}", ex.getMessage(), req.getRequestURI());
+        return build(HttpStatus.CONFLICT, ex.getCode(), ex.getMessage(), req, List.of());
+    }
+
     @ExceptionHandler(DuplicateProductException.class)
     public ResponseEntity<ApiError> handleDuplicateProduct(DuplicateProductException ex, HttpServletRequest req) {
         log.warn("Conflit produit (SKU existant) : {} - URI: {}", ex.getMessage(), req.getRequestURI());
