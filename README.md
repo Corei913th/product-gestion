@@ -61,10 +61,28 @@ eadl.productgestion
 | **PUT** | `/api/v1/products/{id}` | Modifier un produit | `200 OK`, `400`, `404`, `409` |
 | **PATCH** | `/api/v1/products/{id}/stock` | Ajuster le stock (`delta` positif ou négatif) | `200 OK`, `400`, `404`, `409` |
 | **DELETE** | `/api/v1/products/{id}` | Supprimer un produit | `204 No Content`, `404` |
+| **POST** | `/api/v1/users` | Créer un utilisateur | `201 Created`, `400`, `409` |
+| **GET** | `/api/v1/users` | Lister tous les utilisateurs | `200 OK` |
+| **GET** | `/api/v1/users/{id}` | Consulter un utilisateur | `200 OK`, `404` |
+| **PUT** | `/api/v1/users/{id}` | Modifier un utilisateur | `200 OK`, `400`, `404`, `409` |
+| **PATCH** | `/api/v1/users/{id}/status` | Modifier le statut (ACTIVE / BLOCKED) | `200 OK`, `404` |
+| **DELETE** | `/api/v1/users/{id}` | Supprimer un utilisateur | `204 No Content`, `404` |
 
 ---
 
-## 4. Documentation Swagger (OpenAPI)
+## 4. Authentification (JWT)
+
+| Méthode | URI | Description | Statuts HTTP |
+| :--- | :--- | :--- | :--- |
+| **POST** | `/api/auth/register` | Créer un compte et recevoir un jeton JWT | `201 Created`, `400`, `409` |
+| **POST** | `/api/auth/login` | S'authentifier et recevoir un jeton JWT | `200 OK`, `400`, `401` |
+| **POST** | `/api/auth/logout` | Invalider le jeton JWT courant | `204 No Content`, `401` |
+
+Les endpoints protégés exigent l'en-tête `Authorization: Bearer <jeton>`.
+
+---
+
+## 5. Documentation Swagger (OpenAPI)
 
 Une fois l'application lancée :
 - **Interface Swagger UI** : [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
@@ -72,7 +90,7 @@ Une fois l'application lancée :
 
 ---
 
-## 5. Prérequis & Lancement
+## 6. Prérequis & Lancement
 
 ### Prérequis
 - **Java 21 (LTS)** ou supérieur.
@@ -86,7 +104,7 @@ mvn spring-boot:run
 
 ---
 
-## 6. Tests & Couverture de Code
+## 7. Tests & Couverture de Code
 
 ### Exécuter l'ensemble des tests
 ```bash
