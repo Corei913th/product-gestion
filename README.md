@@ -70,7 +70,19 @@ eadl.productgestion
 
 ---
 
-## 4. Documentation Swagger (OpenAPI)
+## 4. Authentification (JWT)
+
+| Méthode | URI | Description | Statuts HTTP |
+| :--- | :--- | :--- | :--- |
+| **POST** | `/api/auth/register` | Créer un compte et recevoir un jeton JWT | `201 Created`, `400`, `409` |
+| **POST** | `/api/auth/login` | S'authentifier et recevoir un jeton JWT | `200 OK`, `400`, `401` |
+| **POST** | `/api/auth/logout` | Invalider le jeton JWT courant | `204 No Content`, `401` |
+
+Les endpoints protégés exigent l'en-tête `Authorization: Bearer <jeton>`.
+
+---
+
+## 5. Documentation Swagger (OpenAPI)
 
 Une fois l'application lancée :
 - **Interface Swagger UI** : [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
@@ -78,7 +90,7 @@ Une fois l'application lancée :
 
 ---
 
-## 5. Prérequis & Lancement
+## 6. Prérequis & Lancement
 
 ### Prérequis
 - **Java 21 (LTS)** ou supérieur.
@@ -92,7 +104,7 @@ mvn spring-boot:run
 
 ---
 
-## 6. Tests & Couverture de Code
+## 7. Tests & Couverture de Code
 
 ### Exécuter l'ensemble des tests
 ```bash
