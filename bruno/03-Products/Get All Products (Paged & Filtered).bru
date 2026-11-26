@@ -1,0 +1,25 @@
+meta {
+  name: Get All Products (Paged & Filtered)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/v1/products?page=0&size=10&sort=id,asc
+  body: none
+  auth: bearer
+}
+
+params:query {
+  page: 0
+  size: 10
+  sort: id,asc
+  ~name: Ordinateur
+  ~categoryId: 1
+  ~minPrice: 100000
+  ~maxPrice: 500000
+}
+
+auth:bearer {
+  token: {{token}}
+}

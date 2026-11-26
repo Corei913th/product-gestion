@@ -1,5 +1,6 @@
 package eadl.productgestion.mappers;
 
+import eadl.productgestion.dto.request.RegisterRequestDTO;
 import eadl.productgestion.dto.request.UserRequest;
 import eadl.productgestion.dto.response.UserResponse;
 import eadl.productgestion.entity.User;
@@ -14,6 +15,9 @@ public interface UserMapper {
 
     @Mapping(target = "id", ignore = true)
     User toEntity(UserRequest request);
+
+    @Mapping(target = "id", ignore = true)
+    User toEntity(RegisterRequestDTO request);
 
     UserResponse toResponse(User user);
 

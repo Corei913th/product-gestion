@@ -1,5 +1,6 @@
 package eadl.productgestion.services.impl;
 
+import eadl.productgestion.dto.request.RegisterRequestDTO;
 import eadl.productgestion.dto.request.UserRequest;
 import eadl.productgestion.dto.response.UserResponse;
 import eadl.productgestion.entity.User;
@@ -9,8 +10,10 @@ import eadl.productgestion.mappers.UserMapper;
 import eadl.productgestion.repositories.UserRepository;
 import eadl.productgestion.services.UserService;
 import eadl.productgestion.utils.UserAccountStatus;
+import eadl.productgestion.utils.UserRole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +27,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -31,8 +35,23 @@ public class UserServiceImpl implements UserService {
         checkEmailUniqueness(request.userEmail(), null);
 
         User user = userMapper.toEntity(request);
+        user.setUserPassword(passwordEncoder.encode(request.userPassword()));
         User saved = userRepository.save(user);
         log.info("Utilisateur créé: id={}, email={}", saved.getId(), saved.getUserEmail());
+        return userMapper.toResponse(saved);
+    }
+
+    @Override
+    @Transactional
+    public UserResponse create(RegisterRequestDTO request) {
+        checkEmailUniqueness(request.userEmail(), null);
+
+        User user = userMapper.toEntity(request);
+        user.setUserPassword(passwordEncoder.encode(request.userPassword()));
+        user.setUserRole(UserRole.CLIENT);
+        user.setUserAccountStatus(UserAccountStatus.ACTIVE);
+        User saved = userRepository.save(user);
+        log.info("Utilisateur publique créé: id={}, email={}", saved.getId(), saved.getUserEmail());
         return userMapper.toResponse(saved);
     }
 

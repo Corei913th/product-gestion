@@ -1,0 +1,33 @@
+meta {
+  name: Update User
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/v1/users/:id
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: 1
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "userName": "Jean Dupont Modifié",
+    "userEmail": "jean.dupont.new@example.com",
+    "userPassword": "Password123!",
+    "userRole": "CLIENT",
+    "userAccountStatus": "ACTIVE"
+  }
+}

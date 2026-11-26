@@ -1,5 +1,6 @@
 package eadl.productgestion.services;
 
+import eadl.productgestion.dto.request.RegisterRequestDTO;
 import eadl.productgestion.dto.request.UserRequest;
 import eadl.productgestion.dto.response.UserResponse;
 import eadl.productgestion.utils.UserAccountStatus;
@@ -12,12 +13,20 @@ import java.util.List;
 public interface UserService {
 
     /**
-     * Enregistre un nouvel utilisateur.
+     * Enregistre un nouvel utilisateur. (Administrateur)
      *
      * @param request données de l'utilisateur à créer
      * @return l'utilisateur créé
      */
     UserResponse create(UserRequest request);
+
+    /**
+     * Enregistre un nouvel utilisateur  (Auth(Client))
+     *
+     * @param request données de l'utilisateur à créer
+     * @return l'utilisateur client créé
+     */
+    UserResponse create(RegisterRequestDTO request);
 
     /**
      * Recherche un utilisateur par son identifiant.

@@ -1,0 +1,30 @@
+meta {
+  name: Create Product
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/products
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "sku": "LAP-001",
+    "name": "Ordinateur portable 15 pouces",
+    "description": "8 Go de RAM, SSD 256 Go",
+    "price": 349000.00,
+    "quantity": 12,
+    "categoryId": 1
+  }
+}
