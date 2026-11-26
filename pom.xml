@@ -29,6 +29,8 @@
     <properties>
         <java.version>21</java.version>
         <sonar.projectKey>products-api</sonar.projectKey>
+        <sonar.projectName>products-api</sonar.projectName>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.coverage.exclusions>**/*Application.java,**/config/**,**/dto/**,**/mappers/**</sonar.coverage.exclusions>
     </properties>
@@ -129,6 +131,14 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.12</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/ProductGestionApplication.*</exclude>
+                        <exclude>**/config/**</exclude>
+                        <exclude>**/dto/**</exclude>
+                        <exclude>**/mappers/**</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -143,6 +153,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>5.0.0.4389</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
